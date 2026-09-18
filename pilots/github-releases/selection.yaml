@@ -1,0 +1,35 @@
+# Human-authored selection for the GitHub "list releases" pilot
+# (CW-20260918-0054 / ATLAS-FOLLOWUP-013). Every allow-list decision here
+# is a human call the compiler validates against openapi-fragment.yaml — it
+# does not invent any of these choices itself.
+api_name: github
+base_url: https://api.github.com
+credential:
+  ref: keychain://api-projection/github-pilot
+  env: GITHUB_TOKEN
+  header: Authorization
+  format: "Bearer %s"
+tools:
+  - name: list_releases
+    description: List releases for a GitHub repository (read-only).
+    operation_id: repos/list-releases
+    fixed_headers:
+      Accept: application/vnd.github+json
+      X-GitHub-Api-Version: "2022-11-28"
+    fields:
+      # owner/repo: caller-settable — that's the whole point of the tool.
+      - name: owner
+      - name: repo
+      # per_page is not required by the upstream operation, but pinned
+      # anyway rather than left caller-settable: it bounds the pilot's
+      # blast radius to a small, fixed page size regardless of what a
+      # caller asks for. "page" is simply not allow-listed at all — the
+      # pilot only ever returns the first page.
+      - name: per_page
+        pin: "5"
+    response:
+      fields:
+        - tag_name
+        - name
+        - published_at
+        - html_url

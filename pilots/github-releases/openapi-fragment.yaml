@@ -1,0 +1,98 @@
+# A trimmed fragment of GitHub's official REST API OpenAPI description
+# (github/rest-api-description), covering only the one operation this
+# pilot projects: "List releases". Trimmed deliberately rather than
+# feeding the compiler the full multi-megabyte spec — this fragment is
+# itself the "approved API definition" for this pilot per the ADR, not a
+# stand-in for reviewing the whole GitHub API surface.
+#
+# operationId, parameters and the response schema's field names match the
+# real, live API (spot-checked against a real GET call to
+# /repos/hollis-labs/mcp-host/releases during this pilot's build).
+openapi: 3.0.3
+paths:
+  /repos/{owner}/{repo}/releases:
+    get:
+      operationId: repos/list-releases
+      summary: List releases for a repository, newest first.
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          description: The account owner of the repository.
+          schema:
+            type: string
+        - name: repo
+          in: path
+          required: true
+          description: The name of the repository, without the .git extension.
+          schema:
+            type: string
+        - name: per_page
+          in: query
+          required: false
+          description: The number of results per page (max 100).
+          schema:
+            type: integer
+        - name: page
+          in: query
+          required: false
+          description: The page number of the results to fetch.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: A list of releases.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                    assets_url:
+                      type: string
+                    upload_url:
+                      type: string
+                    html_url:
+                      type: string
+                    id:
+                      type: integer
+                    node_id:
+                      type: string
+                    tag_name:
+                      type: string
+                    target_commitish:
+                      type: string
+                    name:
+                      type: string
+                    body:
+                      type: string
+                    draft:
+                      type: boolean
+                    prerelease:
+                      type: boolean
+                    created_at:
+                      type: string
+                    published_at:
+                      type: string
+                    tarball_url:
+                      type: string
+                    zipball_url:
+                      type: string
+                    author:
+                      type: object
+                      properties:
+                        login:
+                          type: string
+                        id:
+                          type: integer
+                        html_url:
+                          type: string
+                        type:
+                          type: string
+                        site_admin:
+                          type: boolean
+                    assets:
+                      type: array

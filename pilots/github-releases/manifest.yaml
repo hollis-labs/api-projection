@@ -1,0 +1,43 @@
+api_name: github
+base_url: https://api.github.com
+credential:
+    ref: keychain://api-projection/github-pilot
+    env: GITHUB_TOKEN
+    header: Authorization
+    format: Bearer %s
+tools:
+    - name: list_releases
+      description: List releases for a GitHub repository (read-only).
+      operation:
+        method: GET
+        path: /repos/{owner}/{repo}/releases
+        fixed_headers:
+            Accept: application/vnd.github+json
+            X-GitHub-Api-Version: "2022-11-28"
+      inputs:
+        - name: owner
+          description: The account owner of the repository.
+          in: path
+          type: string
+          required: true
+        - name: repo
+          description: The name of the repository, without the .git extension.
+          in: path
+          type: string
+          required: true
+      pinned:
+        - name: per_page
+          in: query
+          value: "5"
+      annotations:
+        read_only_hint: true
+        destructive_hint: false
+        idempotent_hint: true
+        open_world_hint: true
+      response:
+        array: true
+        fields:
+            - tag_name
+            - name
+            - published_at
+            - html_url
