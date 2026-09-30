@@ -3,8 +3,8 @@
 Mechanical API-to-MCP projection: `manifest` (the schema and its
 invariants), `compiler` (Stage A), `interpreter` (Stage B), `credential`
 (host-side credential-reference resolution). See README.md for the package
-map and `project/atlas/knowledge/adr/adr_api_to_mcp_projection` (Tesseract)
-for the design this implements.
+map. The design this implements is recorded in the project's API-to-MCP
+projection ADR; its numbered decisions are cited below.
 
 ## Start Here
 
@@ -52,7 +52,7 @@ parameter, an upstream-required parameter neither allow-listed nor
 pinned, a response field not in the declared schema) rather than
 defaulting past a selection gap. A human's selection file is the one place
 allow-list decisions get made; loosening a refusal into a default here
-would move that decision into code no PR reviewer would think to look at.
+would move that decision into code no code reviewer would think to look at.
 
 **Stage B spawns one process per manifest** (`apps/station`'s
 `process`-mode logical server, one per pilot/API), never one interpreter
@@ -69,7 +69,7 @@ see the ADR's "Negative / accepted risk" section before changing this.
 **No verified caller identity flows through any of this yet.** Audit/budget
 on a projected tool call is only as honest as whatever caller identity
 `libs/mcp-host`'s serving layer has today, which is not verified
-(`CW-20260918-0037`, in review, as of this writing). Don't claim a
+as of this writing. Don't claim a
 stronger identity guarantee than that in a manifest's description or a
 tool's own text.
 
