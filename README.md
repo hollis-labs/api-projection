@@ -121,5 +121,7 @@ it gets the real treatment now, not later — see the adversarial tests in
 `interpreter/adversarial_test.go`. What changes with "not released" is
 scope and hardening depth, never whether the boundary itself is tested.
 
-No tag yet as of this writing; `go.work` resolves this module locally for
-`apps/station` until one exists.
+Tagged at `v0.1.0`. There is no tracked or ambient `go.work`; local
+cross-module development against an unreleased change is a throwaway
+`go.work` outside the repos, per the portfolio convention — never a
+`replace`, never a tracked workspace file.
