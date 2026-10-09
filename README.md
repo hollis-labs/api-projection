@@ -1,5 +1,22 @@
 # api-projection
 
+## Maintenance moved to `github.com/hollis-labs/libs/plugin-mcp`
+
+This standalone repository is retired. Maintained source and documentation are
+in [github.com/hollis-labs/libs/plugin-mcp/api-projection](https://github.com/hollis-labs/libs/tree/plugin-mcp%2Fv0.1.1/plugin-mcp/api-projection), released in **`plugin-mcp/v0.1.1`**.
+Install the replacement module:
+
+```sh
+go get github.com/hollis-labs/libs/plugin-mcp@v0.1.1
+```
+
+Replace the `github.com/hollis-labs/api-projection` import prefix with
+`github.com/hollis-labs/libs/plugin-mcp/api-projection`, retaining the package subpath. Review the replacement documentation
+for any API changes before migrating. Existing standalone tags and history remain
+available; old module pins do not automatically redirect to the new module.
+
+The documentation below describes historical standalone usage.
+
 api-projection mechanically projects an approved API's operations as MCP
 tools, from a reviewed manifest rather than hand-written per-API code. See
 the ADR at `project/atlas/knowledge/adr/adr_api_to_mcp_projection`
